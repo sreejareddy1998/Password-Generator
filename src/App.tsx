@@ -19,16 +19,19 @@ export default function App() {
     console.log(updatedCheckboxData);
   };
 
+  const handleCopy = () => {
+    navigator.clipboard.writeText(password);
+  };
+
   const { password, errorMessage, generatePassword } = usePasswordGenerator();
   return (
     <div className="container">
       {password && (
         <div className="header">
           <div className="title">{password}</div>
-          <button className="copyBtn" onClick={() => {}}>
+          <button className="copyBtn" onClick={handleCopy}>
             Copy
           </button>
-          )
         </div>
       )}
       <div className="charlength">
@@ -64,7 +67,14 @@ export default function App() {
       </div>
       <div>Strength</div>
       <div>
-        <button type="button" className="generateBtn" onClick={() => {}}>
+        {errorMessage && <div className="errorMessage">{errorMessage}</div>}
+        <button
+          type="button"
+          className="generateBtn"
+          onClick={() => {
+            generatePassword(checkboxData, length);
+          }}
+        >
           Generate Password
         </button>
       </div>
